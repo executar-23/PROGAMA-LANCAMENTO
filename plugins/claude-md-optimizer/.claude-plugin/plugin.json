@@ -1,0 +1,20 @@
+{
+  "name": "claude-md-optimizer",
+  "description": "Optimize oversized agent instruction files (CLAUDE.md, AGENTS.md, copilot-instructions.md) using progressive disclosure, content tiers, encryption constraints, and sub-documents.",
+  "version": "2.2.0",
+  "author": {
+    "name": "Will Smith",
+    "url": "https://github.com/wrsmith108"
+  },
+  "homepage": "https://skillsmith.app",
+  "repository": "https://github.com/wrsmith108/claude-md-optimizer",
+  "license": "MIT",
+  "keywords": [
+    "claude-skill",
+    "claude-md",
+    "agents-md",
+    "copilot-instructions",
+    "progressive-disclosure",
+    "documentation"
+  ]
+}

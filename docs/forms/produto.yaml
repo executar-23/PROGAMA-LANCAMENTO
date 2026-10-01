@@ -1,0 +1,43 @@
+# Formulário de Produto: Ficha de Caracterização da Iniciativa (PMBOK 8 / PMEbook 8)
+# Charter integrado para Projeto, Programa e Ecossistema.
+# Origem: imagem enviada pelo dono do produto (ver ADR-001, seção 3).
+# Uso: copiar para docs/products/<produto>/produto.yaml e preencher `valor` e `fonte`
+# de cada campo. Campo desconhecido fica com valor: null e status: GAP, nunca inventado.
+schema: produto
+versao: 1
+referencia: "PMBOK 8 (tailoring; sete domínios: governança, escopo, cronograma, finanças, stakeholders, recursos e riscos)"
+nota: >-
+  Não existe um único formulário obrigatório do PMI para descrever projeto, programa e
+  ecossistema em conjunto. Esta ficha cobre os sete domínios do PMBOK 8 e adiciona valor,
+  benefícios, dependências e relações.
+tipo_opcoes: [projeto, programa, ecossistema]
+diferenca_central:
+  projeto: Descreve principalmente uma entrega e seus resultados.
+  programa: Descreve projetos relacionados coordenados para gerar benefícios conjuntos.
+  ecossistema: Acrescenta atores, organizações, plataformas, fluxos de valor, interdependências e governança entre as partes.
+campos:
+  - {n: 1,  id: identificacao,           campo: Identificação,            preencher: "Nome, código, versão, responsável, sponsor", valor: null, fonte: null, status: GAP}
+  - {n: 2,  id: tipo,                    campo: Tipo,                     preencher: "Projeto, Programa ou Ecossistema (marcar um ou mais)", valor: null, fonte: null, status: GAP}
+  - {n: 3,  id: proposito,               campo: Propósito,                preencher: "Por que existe? Qual problema/oportunidade atende?", valor: null, fonte: null, status: GAP}
+  - {n: 4,  id: alinhamento_estrategico, campo: Alinhamento estratégico,  preencher: "Objetivo estratégico ao qual está vinculado", valor: null, fonte: null, status: GAP}
+  - {n: 5,  id: valor_esperado,          campo: Valor esperado,           preencher: "Qual valor será criado e para quem?", valor: null, fonte: null, status: GAP}
+  - {n: 6,  id: objetivos_outcomes,      campo: Objetivos / Outcomes,     preencher: "Resultados mensuráveis pretendidos", valor: null, fonte: null, status: GAP}
+  - {n: 7,  id: beneficios,              campo: Benefícios,               preencher: "Benefícios esperados, indicador, meta e responsável", valor: null, fonte: null, status: GAP}
+  - {n: 8,  id: escopo,                  campo: Escopo,                   preencher: "O que está incluído e excluído", valor: null, fonte: null, status: GAP}
+  - {n: 9,  id: entregaveis_componentes, campo: Entregáveis / Componentes, preencher: "Principais produtos, serviços, projetos ou capacidades", valor: null, fonte: null, status: GAP}
+  - {n: 10, id: estrutura,               campo: Estrutura,                preencher: "Projetos, subprojetos, programas, operações e iniciativas relacionadas", valor: null, fonte: null, status: GAP}
+  - {n: 11, id: stakeholders,            campo: Stakeholders,             preencher: "Clientes, usuários, parceiros, fornecedores, reguladores etc.", valor: null, fonte: null, status: GAP}
+  - {n: 12, id: ecossistema,             campo: Ecossistema,              preencher: "Organizações/atores envolvidos e relações entre eles", valor: null, fonte: null, status: GAP}
+  - {n: 13, id: governanca,              campo: Governança,               preencher: "Quem decide o quê; comitês, sponsor, responsáveis", valor: null, fonte: null, status: GAP}
+  - {n: 14, id: recursos,                campo: Recursos,                 preencher: "Pessoas, competências, infraestrutura e tecnologia", valor: null, fonte: null, status: GAP}
+  - {n: 15, id: financas,                campo: Finanças,                 preencher: "Investimento, orçamento, fontes de recursos, custos", valor: null, fonte: null, status: GAP}
+  - {n: 16, id: cronograma,              campo: Cronograma,               preencher: "Início, término, fases e principais marcos", valor: null, fonte: null, status: GAP}
+  - {n: 17, id: dependencias,            campo: Dependências,             preencher: "Dependências entre projetos, organizações e sistemas", valor: null, fonte: null, status: GAP}
+  - {n: 18, id: riscos,                  campo: Riscos,                   preencher: "Principais riscos, oportunidades e respostas", valor: null, fonte: null, status: GAP}
+  - {n: 19, id: premissas_restricoes,    campo: Premissas / restrições,   preencher: "Condições assumidas e limitações", valor: null, fonte: null, status: GAP}
+  - {n: 20, id: metricas_sucesso,        campo: Métricas de sucesso,      preencher: "KPI, baseline, meta, prazo e fonte dos dados", valor: null, fonte: null, status: GAP}
+  - {n: 21, id: abordagem,               campo: Abordagem,                preencher: "Preditiva, ágil, híbrida; principais critérios de tailoring", valor: null, fonte: null, status: GAP}
+  - {n: 22, id: aprovacao,               campo: Aprovação,                preencher: "Sponsor, responsáveis, data e aprovação", valor: null, fonte: null, status: GAP}
+sugestao_operacional: >-
+  Versão completa em 3 páginas: visão executiva; mapa Projeto/Programa/Ecossistema;
+  governança + benefícios + KPIs + riscos + roadmap.

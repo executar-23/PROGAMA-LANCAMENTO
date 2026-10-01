@@ -19,6 +19,13 @@ Forças em jogo:
   para que o resultado seja reprodutível.
 - Toda decisão e todo preenchimento precisam ficar registrados e rastreáveis no
   repositório, e não só no chat.
+- A governança documental existe em dois modelos: o anterior (D01–D16, 30 documentos, dos
+  quais 16 macros documentados e 14 especializados de classe E, Recomendada) e o novo
+  (D01–D23, um documento macro por área, incluindo D17 PEP, D18 PCE, D19 PAC, D20 PPR,
+  D21 PWB, D22 DRL e D23 PBL). Hierarquia vigente: Ecossistema → D01–D23 → Documento Macro
+  → Documentos especializados → Workflows/Tarefas/Assets/Registros. Falta reconciliar os 30
+  documentos antigos com as 23 áreas atuais; o Master Index novo ainda não tem as colunas
+  Subáreas, Documentos especializados, Repositório/Drive, Owner, Status e Dependências.
 
 ## Decision
 
@@ -41,31 +48,42 @@ Quem preenche os formulários são os agentes; o dono do produto revisa e aprova
 Antes de produzir qualquer coisa, a **raiz do repositório** recebe os agentes e plugins
 que sustentam o workflow, para o Claude Code ter a dependência e a estrutura carregadas:
 
-| Item | Papel | Origem |
-|---|---|---|
-| Agente **handoff** | Opera o ciclo `/setup-handoff` → `/plan` → `/execute` → `/verify` via `.handoff/` | bundle agent-handoff |
-| Plugin **engineering** (1.2.0) | `/architecture` (ADRs), `/review`, `/debug`, `/deploy-checklist`, `/incident`, `/standup` | Anthropic, `knowledge-work-plugins` |
-| Plugin **product-management** | Especificação e priorização de produto | Anthropic, `knowledge-work-plugins` |
-| Plugin **marketing** (campaign plan) | Plano de campanha, editorial, copy | Anthropic, `knowledge-work-plugins` |
-| Agentes do workflow (**maestro** e demais) | Orquestração e execução por área | Repositório EXECUTAR |
+| Item | Papel | Origem | Estado |
+|---|---|---|---|
+| Agente **handoff** (0.4.2) | Opera o ciclo `/setup-handoff` → `/plan` → `/execute` → `/verify` via `.handoff/` | `plugins/agent-handoff/` | Incluído |
+| Plugin **engineering** (1.2.0) | `/architecture` (ADRs), `/review`, `/debug`, `/deploy-checklist`, `/incident`, `/standup` | `plugins/engineering/` | Incluído |
+| **claude-md-optimizer** (2.2.0) | Mantém `CLAUDE.md`/`AGENTS.md` curtos por progressive disclosure | `plugins/claude-md-optimizer/` | Incluído |
+| Plugin **product-management** | Especificação e priorização de produto | Anthropic, `knowledge-work-plugins` | Pendente |
+| Plugin **marketing** (campaign plan) | Plano de campanha, editorial, copy | Anthropic, `knowledge-work-plugins` | Pendente |
+| Agentes do workflow (**maestro** e demais) | Orquestração e execução por área | Repositório EXECUTAR | Pendente |
 
 A adaptação da Estratégia 07 consiste em carregar esses itens na raiz **antes** do passo 2
 do workflow, e não sob demanda durante a produção.
 
 ### 3. Formulários em YAML
 
-Os dois formulários passam a existir como esquemas YAML versionados:
+Os dois formulários obrigatórios existem como esquemas YAML versionados, convertidos das
+imagens enviadas pelo dono do produto:
 
-- `docs/forms/produto.yaml`: formulário de **Produto**.
-- `docs/forms/produto-engenharia.yaml`: formulário de **Produto para Engenharia**.
+| Formulário | Esquema | Origem |
+|---|---|---|
+| **Produto** | `docs/forms/produto.yaml` | "Ficha de Caracterização da Iniciativa" (charter integrado PMBOK 8, 22 campos) |
+| **Produto para Engenharia** | `docs/forms/produto-engenharia.yaml` | "Da Ideia ao Impacto" (Development Ready Package, ordem de desenvolvimento, papéis e gate) |
+| Referência de ciclo | `docs/forms/ciclo-produto.yaml` | "Product Management, Ciclo de Desenvolvimento de Produto" (13 fases com perguntas de controle). Apoia os formulários; não os substitui |
 
-Regras: um arquivo preenchido por produto (`docs/products/<produto>/produto.yaml` e
-`produto-engenharia.yaml`); campos não conhecidos ficam vazios e marcados `GAP`, nunca
-inventados; os agentes citam a fonte de cada valor.
+Regras:
 
-> **Pendente:** a conversão das duas imagens dos formulários para YAML depende dos
-> arquivos originais. Eles não chegaram à sessão (só o zip do plugin engineering foi
-> recebido). Os esquemas serão gravados neste PR assim que as imagens forem reenviadas.
+- Um arquivo preenchido por produto, em `docs/products/<produto>/produto.yaml` e
+  `docs/products/<produto>/produto-engenharia.yaml`.
+- Campo desconhecido fica com `valor: null` e `status: GAP`, nunca inventado; todo valor
+  preenchido cita a `fonte`.
+- O **gate obrigatório** do formulário de engenharia vale para todos os agentes: nenhuma
+  implementação começa sem PRD + SPEC + Acceptance Criteria + Implementation Plan
+  disponíveis e consistentes.
+- A ordem do desenvolvimento de código (18 passos, da documentação aprovada ao
+  monitoramento) é a do formulário de engenharia e se encaixa no ciclo do handoff:
+  planejamento (passos 1–6) em `/plan`, implementação (7–10) em `/execute`, revisão e
+  entrega (11–18) em `/verify` e nos checklists de deploy.
 
 ### 4. Ordem de lançamento dos macros
 
@@ -133,18 +151,25 @@ inicial.
   issues a partir dos formulários, montar o workbook com ADRs e currículos.
 - Fica mais difícil: começar a produzir sem os formulários; mudar a ordem de lançamento
   sem novo ADR.
-- A revisitar: o conteúdo exato dos formulários (depende das imagens), a definição formal
-  da Estratégia 07 e a política de PR (rascunho ou não) por repositório.
+- A revisitar: a definição formal da Estratégia 07 e a política de PR (rascunho ou não)
+  por repositório.
 
 ## Action Items
 
-1. [ ] Reenviar as duas imagens dos formulários e convertê-las em `docs/forms/*.yaml`.
-2. [ ] Criar a branch `main` e subir na raiz: agente handoff, plugin engineering 1.2.0,
-       product-management, marketing e agentes do workflow.
-3. [ ] Preencher os formulários do produto 1 (Risco Cognitivo Blog) e abrir as issues do
-       plano de execução.
-4. [ ] Levantar e registrar as dependências abertas do blog: domínio, plataformas,
+1. [x] Converter as imagens dos formulários em `docs/forms/*.yaml`.
+2. [x] Subir na raiz o agente handoff, o plugin engineering e o claude-md-optimizer
+       (`plugins/`).
+3. [ ] Subir os pendentes: product-management, marketing e os agentes do workflow (maestro
+       e demais).
+4. [ ] Criar a branch `main` (hoje o repositório só tem a branch de trabalho) e abrir o PR.
+5. [ ] Rodar `/setup-handoff` na raiz para gerar `.handoff/config.md`.
+6. [ ] Preencher os formulários do produto 1 (Risco Cognitivo Blog) em
+       `docs/products/risco-cognitivo-blog/` e abrir as issues do plano de execução.
+7. [ ] Levantar e registrar as dependências abertas do blog: domínio, plataformas,
        CAPEX/OPEX, repositório único.
-5. [ ] Definir o template do package modelo (editorial pronto e publicado).
-6. [ ] Escrever o currículo de cada agente para o workbook.
-7. [ ] Registrar em ADR próprio a definição da Estratégia 07 e o fluxo "autorizo".
+8. [ ] Definir o template do package modelo (editorial pronto e publicado).
+9. [ ] Escrever o currículo de cada agente para o workbook.
+10. [ ] Reconciliar os 30 documentos antigos com as 23 áreas D01–D23 e estender o Master
+        Index com as colunas Subáreas, Documentos especializados, Repositório/Drive, Owner,
+        Status e Dependências (ADR próprio).
+11. [ ] Registrar em ADR próprio a definição da Estratégia 07 e o fluxo "autorizo".

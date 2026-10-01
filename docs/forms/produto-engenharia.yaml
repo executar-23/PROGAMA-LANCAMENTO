@@ -1,0 +1,92 @@
+# Formulário de Produto para Engenharia: "Da Ideia ao Impacto"
+# Fluxo completo de documentação, desenvolvimento e entrega de produto.
+# Origem: imagem enviada pelo dono do produto (ver ADR-001, seção 3).
+# Uso: copiar para docs/products/<produto>/produto-engenharia.yaml e preencher
+# `valor`/`fonte`/`status` (GAP | RASCUNHO | APROVADO) de cada item.
+schema: produto-engenharia
+versao: 1
+fluxo: [ideia, documentacao, codigo, impacto]
+principios: [documentacao clara, execucao eficiente, produtos que geram valor]
+
+gate_obrigatorio:
+  regra: >-
+    Nenhum agente inicia implementação enquanto PRD + SPEC + Acceptance Criteria +
+    Implementation Plan não estiverem disponíveis e consistentes.
+  exige: [prd, spec, acceptance_criteria, implementation_plan]
+
+# 1. Produto -> Engenharia: Development Ready Package (DRP). O time de Produto entrega
+# o que, por quê e critérios de sucesso.
+produto_entrega:
+  - {n: 1, id: prd,                     item: PRD,                       conteudo: "problema, usuário, objetivos, escopo IN/OUT, requisitos, KPIs", valor: null, fonte: null, status: GAP}
+  - {n: 2, id: ux_flows,                item: UX / Flows,                conteudo: "jornadas, fluxos, telas, estados, erros, edge cases", valor: null, fonte: null, status: GAP}
+  - {n: 3, id: functional_requirements, item: Functional Requirements,   conteudo: "comportamentos e regras de negócio", valor: null, fonte: null, status: GAP}
+  - {n: 4, id: acceptance_criteria,     item: Acceptance Criteria,       conteudo: "condições objetivas de conclusão", valor: null, fonte: null, status: GAP}
+  - {n: 5, id: nfr,                     item: NFR,                       conteudo: "segurança, performance, disponibilidade, privacidade, acessibilidade", valor: null, fonte: null, status: GAP}
+  - {n: 6, id: data_integration_req,    item: Data / Integration Requirements, conteudo: "entidades, APIs e integrações", valor: null, fonte: null, status: GAP}
+  - {n: 7, id: analytics,               item: Analytics,                 conteudo: "eventos, métricas e telemetria", valor: null, fonte: null, status: GAP}
+  - {n: 8, id: release_constraints,     item: Release Constraints,       conteudo: "dependências, rollout, riscos e condições", valor: null, fonte: null, status: GAP}
+
+# 2. Engenharia prepara o pacote técnico. Transforma requisitos em solução técnica.
+engenharia_prepara:
+  - {n: 1, id: engineering_review,      item: Engineering Review,        conteudo: "alinhamento entre produto e engenharia", valor: null, fonte: null, status: GAP}
+  - {n: 2, id: spec,                    item: SPEC (Tech Spec),          conteudo: "desenho técnico da solução", valor: null, fonte: null, status: GAP}
+  - {n: 3, id: adrs,                    item: ADRs,                      conteudo: "decisões arquiteturais relevantes", valor: null, fonte: null, status: GAP}
+  - {n: 4, id: api_contracts,           item: API Contracts,             conteudo: "interfaces e schemas", valor: null, fonte: null, status: GAP}
+  - {n: 5, id: data_model,              item: Data Model,                conteudo: "banco de dados, entidades e migrations", valor: null, fonte: null, status: GAP}
+  - {n: 6, id: test_plan,               item: Test Plan,                 conteudo: "testes unitários, integração e E2E", valor: null, fonte: null, status: GAP}
+  - {n: 7, id: implementation_plan,     item: Implementation Plan,       conteudo: "sequência de implementação", valor: null, fonte: null, status: GAP}
+  - {n: 8, id: epics_issues,            item: Epics / Issues,            conteudo: "unidades executáveis de trabalho", valor: null, fonte: null, status: GAP}
+
+# 3. Documentação no repositório: tudo versionado antes do código; a documentação
+# aprovada é a fonte de verdade.
+estrutura_repositorio: |
+  repository/
+  ├── README.md
+  ├── AGENTS.md          # regras para agentes de IA: arquitetura, comandos, testes, convenções e limites
+  ├── docs/
+  │   ├── product/PRD.md
+  │   ├── requirements/FERD.md
+  │   ├── specs/SPEC.md
+  │   ├── architecture/ADR-001.md, ADR-002.md
+  │   └── testing/TEST_PLAN.md
+  ├── src/
+  ├── tests/
+  └── ...
+
+# 4. Ordem do desenvolvimento de código (18 passos, em sequência).
+ordem_desenvolvimento:
+  - {n: 1,  etapa: Documentação aprovada,      descricao: "PRD, SPEC, critérios e plano prontos"}
+  - {n: 2,  etapa: Repositório,                descricao: "Documentação versionada"}
+  - {n: 3,  etapa: Planning,                   descricao: "Epics, issues e backlog"}
+  - {n: 4,  etapa: Branch,                     descricao: "Criação da branch de desenvolvimento"}
+  - {n: 5,  etapa: Contratos / Schemas,        descricao: "APIs, modelos de dados, integrações"}
+  - {n: 6,  etapa: Testes (antes do código),   descricao: "Definição da estratégia e testes iniciais"}
+  - {n: 7,  etapa: Implementação do código,    descricao: "Desenvolvimento com IA ou humano"}
+  - {n: 8,  etapa: Unit Test,                  descricao: "Execução e cobertura"}
+  - {n: 9,  etapa: Integration Test,           descricao: "Validação entre módulos e serviços"}
+  - {n: 10, etapa: E2E,                        descricao: "Cenários completos"}
+  - {n: 11, etapa: Pull Request,               descricao: "Abertura do PR"}
+  - {n: 12, etapa: Code Review,                descricao: "Revisão por humanos e/ou IA"}
+  - {n: 13, etapa: CI,                         descricao: "Build, testes e qualidade automatizada"}
+  - {n: 14, etapa: Staging,                    descricao: "Deploy em ambiente de homologação"}
+  - {n: 15, etapa: UAT / Acceptance,           descricao: "Validação com produto e stakeholders"}
+  - {n: 16, etapa: Merge,                      descricao: "Integração na branch principal"}
+  - {n: 17, etapa: Deploy,                     descricao: "Implantação em produção"}
+  - {n: 18, etapa: Monitoramento,              descricao: "Métricas, logs e alertas"}
+
+# 5. Fluxo macro do processo: do problema ao impacto contínuo.
+fluxo_macro:
+  documentacao: [Discovery, PRD, FERD, SPEC, ADR]
+  entrega: [Repository, Planning, AI Coding, Tests, Deploy, GTM, Measurement]
+
+# 6. Papéis e responsabilidades.
+papeis:
+  Produto: Define problema, usuário, valor e critérios de sucesso
+  Engenharia: Desenha, implementa, testa e entrega a solução
+  Design: UX, UI e experiência do usuário
+  QA: Estratégia e execução de testes
+  DevOps: Infraestrutura, CI/CD e deploy
+  Stakeholders: Validação, priorização e suporte
+
+resultado: Menos retrabalho. Maior clareza. Execução mais rápida. Produtos que geram valor real.
+ciclo: [planejar, executar, aprender, evoluir]
