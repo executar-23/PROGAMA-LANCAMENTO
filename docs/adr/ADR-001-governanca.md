@@ -53,12 +53,18 @@ que sustentam o workflow, para o Claude Code ter a dependência e a estrutura ca
 | Agente **handoff** (0.4.2) | Opera o ciclo `/setup-handoff` → `/plan` → `/execute` → `/verify` via `.handoff/` | `plugins/agent-handoff/` | Incluído |
 | Plugin **engineering** (1.2.0) | `/architecture` (ADRs), `/review`, `/debug`, `/deploy-checklist`, `/incident`, `/standup` | `plugins/engineering/` | Incluído |
 | **claude-md-optimizer** (2.2.0) | Mantém `CLAUDE.md`/`AGENTS.md` curtos por progressive disclosure | `plugins/claude-md-optimizer/` | Incluído |
-| Plugin **product-management** | Especificação e priorização de produto | Anthropic, `knowledge-work-plugins` | Pendente |
-| Plugin **marketing** (campaign plan) | Plano de campanha, editorial, copy | Anthropic, `knowledge-work-plugins` | Pendente |
+| Plugin **product-management** (1.2.0) | Especificação, roadmap e síntese de pesquisa | `plugins/product-management/` | Incluído |
+| Plugin **marketing** (1.2.0) | Campaign plan, conteúdo, SEO, e-mail, relatório de performance | `plugins/marketing/` | Incluído |
 | Agentes do workflow (**maestro** e demais) | Orquestração e execução por área | Repositório EXECUTAR | Pendente |
 
 A adaptação da Estratégia 07 consiste em carregar esses itens na raiz **antes** do passo 2
 do workflow, e não sob demanda durante a produção.
+
+A **Estratégia 07-Execução** (`docs/strategies/estrategia-07.md`) rege a execução: um único
+arquivo de estado (`07-execucao/ESTADO.md`), progresso derivado de evidência e nunca por
+declaração, WIP = 1, dado ausente registrado como `A DEFINIR`, no máximo 3 perguntas por
+rodada quando algo bloqueia, e aprovação explícita antes de qualquer ação externa
+(publicar, enviar, gastar, deploy). O estado deste ADR está em `07-execucao/ESTADO.md`.
 
 ### 3. Formulários em YAML
 
@@ -151,16 +157,15 @@ inicial.
   issues a partir dos formulários, montar o workbook com ADRs e currículos.
 - Fica mais difícil: começar a produzir sem os formulários; mudar a ordem de lançamento
   sem novo ADR.
-- A revisitar: a definição formal da Estratégia 07 e a política de PR (rascunho ou não)
-  por repositório.
+- A revisitar: a política de PR (rascunho ou não) por repositório e o significado exato de
+  "autorizo" no workflow (hoje coberto só pela regra de aprovação explícita da Estratégia 07).
 
 ## Action Items
 
 1. [x] Converter as imagens dos formulários em `docs/forms/*.yaml`.
-2. [x] Subir na raiz o agente handoff, o plugin engineering e o claude-md-optimizer
-       (`plugins/`).
-3. [ ] Subir os pendentes: product-management, marketing e os agentes do workflow (maestro
-       e demais).
+2. [x] Subir na raiz o agente handoff, os plugins engineering, product-management e
+       marketing e o claude-md-optimizer (`plugins/`).
+3. [ ] Subir os agentes do workflow (maestro e demais), ainda não enviados.
 4. [ ] Criar a branch `main` (hoje o repositório só tem a branch de trabalho) e abrir o PR.
 5. [ ] Rodar `/setup-handoff` na raiz para gerar `.handoff/config.md`.
 6. [ ] Preencher os formulários do produto 1 (Risco Cognitivo Blog) em
@@ -172,4 +177,6 @@ inicial.
 10. [ ] Reconciliar os 30 documentos antigos com as 23 áreas D01–D23 e estender o Master
         Index com as colunas Subáreas, Documentos especializados, Repositório/Drive, Owner,
         Status e Dependências (ADR próprio).
-11. [ ] Registrar em ADR próprio a definição da Estratégia 07 e o fluxo "autorizo".
+11. [x] Registrar a Estratégia 07 (`docs/strategies/estrategia-07.md`) e iniciar o
+        `07-execucao/ESTADO.md`.
+12. [ ] Definir o fluxo "autorizo" (quem aprova, onde fica o registro da aprovação).

@@ -6,7 +6,9 @@ Cópias sem alteração; para atualizar, substitua a pasta inteira e registre a 
 | Pasta | Versão | Origem | Licença | Papel no workflow |
 |---|---|---|---|---|
 | `agent-handoff/` | 0.4.2 | github.com/WillowRyu/agent-handoff | MIT | `/setup-handoff` → `/plan` → `/execute` → `/verify` (estado em `.handoff/`) |
-| `engineering/` | 1.2.0 | Anthropic, `knowledge-work-plugins` | ver upstream | `/architecture` (ADRs), `/review`, `/debug`, `/deploy-checklist`, `/incident`, `/standup` |
+| `engineering/` | 1.2.0 | Anthropic, `knowledge-work-plugins` | Apache-2.0 | `/architecture` (ADRs), `/review`, `/debug`, `/deploy-checklist`, `/incident`, `/standup` |
+| `product-management/` | 1.2.0 | Anthropic, `knowledge-work-plugins` | Apache-2.0 | `/write-spec`, roadmap, sprint planning, síntese de pesquisa, métricas, brainstorm |
+| `marketing/` | 1.2.0 | Anthropic, `knowledge-work-plugins` | Apache-2.0 | `campaign-plan`, conteúdo, SEO, e-mail, brand review, performance |
 | `claude-md-optimizer/` | 2.2.0 | github.com/wrsmith108/claude-md-optimizer | MIT | Mantém CLAUDE.md/AGENTS.md curtos (progressive disclosure) |
 
 Notas:
@@ -18,5 +20,7 @@ Notas:
 - Estas pastas não são carregadas automaticamente pelo Claude Code. Instale com
   `claude plugin marketplace add ./plugins/<nome>` ou use `npx skills@latest add` conforme o
   README de cada um.
-- Pendentes de entrar: `product-management` e `marketing` (Anthropic) e os agentes do
-  workflow (maestro e demais), cujos arquivos ainda não foram enviados.
+- Licença dos plugins Anthropic: Apache-2.0, texto em `LICENSE-anthropic-knowledge-work-plugins`.
+  `product-management/` e `marketing/` trazem o próprio `LICENSE`.
+- Pendentes de entrar: os agentes do workflow (maestro e demais), cujos arquivos ainda não
+  foram enviados.
