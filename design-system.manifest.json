@@ -1,0 +1,22 @@
+{
+  "$comment": "ADR-DS-ROOT-MIGRATION-001 — apontador da fonte de verdade do design system. Ver DESIGN_SYSTEM.md.",
+  "source": {
+    "repository": "executar-23/Risco-cognitivo-blog",
+    "branch": "main",
+    "commit": "530afe1708ed24111f9b6756948908ab7e9b3afe"
+  },
+  "target": {
+    "repository": "executar-23/PROGAMA-LANCAMENTO",
+    "commitBefore": "3afffb03042f88108de4e209231ac3414cb62c7e"
+  },
+  "paths": {
+    "tokens": null,
+    "components": null,
+    "catalog": null
+  },
+  "runtimeRoute": null,
+  "classification": "NON_UI",
+  "status": "VENDORED_REFERENCE_ONLY",
+  "lastSync": "2026-10-01",
+  "verified": false
+}
