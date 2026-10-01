@@ -47,7 +47,13 @@ das sessões de agente (`CLOUDFLARE_API_TOKEN` via proxy) só acessa a conta Hub
 ## Action Items
 
 1. [x] Registrar a decisão (este ADR) e a regra no `CLAUDE.md` de cada repositório.
-2. [ ] Hub Editorial: bindings para os D1/KV da Hub.executar, seed, deploy do auth e do app.
-3. [ ] Blog: integrar a `main`, apontar a base URL para `hub-executar`, publicar.
-4. [ ] Fila de agentes: `BLOG_URL` para `hub-executar`, publicar.
-5. [ ] Issues: reconectar Workers Builds, segredos pendentes, desativação da conta legada.
+2. [x] Hub Editorial: bindings, URLs e `account_id` na Hub.executar; D1 migrados e populados (48 registros); `hub-editorial-auth` publicado.
+3. [ ] Hub Editorial: deploy fullstack do app ([react-router-hono-fullstack-template#24](https://github.com/executar-23/react-router-hono-fullstack-template/issues/24)), `RESEND_API_KEY` ([#25](https://github.com/executar-23/react-router-hono-fullstack-template/issues/25)), Workers Builds na Hub.executar ([#26](https://github.com/executar-23/react-router-hono-fullstack-template/issues/26)).
+4. [x] Blog: `main` integrada (`530afe1`), base URL e `account_id` na Hub.executar.
+5. [ ] Blog: deploy na Hub.executar ([Risco-cognitivo-blog#4](https://github.com/executar-23/Risco-cognitivo-blog/issues/4)).
+6. [ ] Fila de agentes: `BLOG_URL` após o deploy do blog ([workflows-starter-template#17](https://github.com/executar-23/workflows-starter-template/issues/17)).
+7. [ ] Desativar a conta legada, com aprovação ([PROGAMA-LANCAMENTO#1](https://github.com/executar-23/PROGAMA-LANCAMENTO/issues/1)).
+
+Bloqueio técnico das sessões de agente: o proxy sobrescreve o `Authorization` no upload de
+assets do wrangler (401), então Workers com assets são publicados com token próprio, via CI
+ou localmente. Workers sem assets (auth) e com assets inline (fila de agentes) publicam normalmente.
