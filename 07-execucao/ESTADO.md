@@ -17,7 +17,7 @@ não enviados; sem ação externa sem aprovação.
 | 03 | Registrar Estratégia 07 | Texto original da estratégia versionado e citado no ADR | ✅ | Claude | `docs/strategies/estrategia-07.md`; ADR-001 seção 2 |
 | 04 | Carregar plugins na raiz | handoff, engineering, product-management, marketing e claude-md-optimizer em `plugins/`, com origem e licença | ✅ | Claude | `plugins/README.md`; pastas dos 5 plugins |
 | 05 | Carregar agentes do workflow | Maestro e demais agentes versionados na raiz | ⛔ | Dono do produto | `A DEFINIR`: arquivos ainda não enviados |
-| 06 | Criar `main` e abrir PR | `main` existe e há PR em rascunho da branch de trabalho | ⛔ | Dono do produto (aprovação) | Aguardando aprovação: ação externa (push em outra branch) |
+| 06 | Criar `main` | `main` existe com o histórico da branch de trabalho (regra: trabalho direto na `main`, sem PR draft) | ✅ | Claude (autorizado: "execute está autorizado a seguir") | `main` criada em 2026-10-01 a partir da branch de trabalho |
 | 07 | Rodar `/setup-handoff` | `.handoff/config.md` gerado na raiz | ⬜ | Claude | `A DEFINIR`; depende do 06 para o repositório ter base estável |
 | 08 | Preencher formulários do produto 1 | `docs/products/risco-cognitivo-blog/produto.yaml` e `produto-engenharia.yaml` preenchidos, lacunas marcadas `GAP` | ⬜ | Agentes; revisão: dono do produto | `A DEFINIR`: depende de dados do blog (domínio, plataformas, CAPEX/OPEX) |
 | 09 | Reconciliar D01–D16 (30 docs) com D01–D23 | Mapa antigo → novo aprovado e Master Index estendido | ⬜ | Dono do produto | `A DEFINIR` (ADR próprio) |
@@ -29,7 +29,6 @@ sem bloqueio é o **08**, mas ele precisa dos dados do blog (ver "Decisões pend
 
 ## Decisões pendentes
 
-1. Aprovar a criação da `main` e do PR em rascunho (estágio 06).
 2. Enviar os arquivos dos agentes do workflow (estágio 05).
 3. Informar os dados do produto 1 que faltam: domínio, plataformas, CAPEX/OPEX e repositório
    único do blog (estágio 08).

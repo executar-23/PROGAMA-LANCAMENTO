@@ -7,6 +7,7 @@ Guia para o Claude Code (e outros agentes) neste repositório.
 - Todo produto ou mudança de engenharia segue o ADR-001 (`docs/adr/ADR-001-governanca.md`): ADR numerado, formulário de Produto, formulário de Produto para Engenharia (`docs/forms/*.yaml`), README, plano em issues e só então a produção.
 - A execução segue a Estratégia 07 (`docs/strategies/estrategia-07.md`): um único estado em `07-execucao/ESTADO.md`, progresso só com evidência, WIP = 1, dado ausente é `A DEFINIR`, aprovação explícita antes de ação externa.
 - Agentes e plugins da raiz ficam em `plugins/` (ver `plugins/README.md`).
+- Cloudflare: a conta padrão de todo o ecossistema é **Hub.executar** (`92fdc1b5…`, `*.hub-executar.workers.dev`), conforme o ADR-002 (`docs/adr/ADR-002-conta-cloudflare-padrao.md`). Não criar recursos em outra conta.
 
 ## Fluxo Git e issues
 
